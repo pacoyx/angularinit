@@ -1,0 +1,33 @@
+<div class="container">
+    <h3>Registro de Clientes</h3>
+    <br>
+    <button (click)="nuevo()" class="btn btn-info"><i class="fas fa-plus"></i> Agregar</button>
+    <hr>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Edad</th>
+                <th>Saldo</th>
+                <th>Pais</th>
+                <th colspan="2">Opciones</th>
+            </tr>   
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of lisClientes">
+                <td>{{  item.nombre }}</td>
+                <td>{{  item.edad }}</td>
+                <td>{{  item.saldo }}</td>
+                <td>{{  item.pais }}</td>
+                <td>
+                    <button class="btn btn-warning btn-block"><i class="fas fa-edit"></i> </button>
+                </td>
+                <td>
+                    <button class="btn btn-danger btn-block"><i class="fas fa-trash"></i> </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
