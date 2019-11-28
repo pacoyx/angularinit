@@ -1,5 +1,12 @@
 <div class="container">
     <h3>Registro de Clientes</h3>
+
+
+
+
+
+
+    
     <br>
     <button (click)="nuevo()" class="btn btn-info"><i class="fas fa-plus"></i> Agregar</button>
     <hr>
@@ -12,7 +19,7 @@
                 <th>Saldo</th>
                 <th>Pais</th>
                 <th colspan="2">Opciones</th>
-            </tr>   
+            </tr>
         </thead>
         <tbody>
             <tr *ngFor="let item of lisClientes">
@@ -29,5 +36,13 @@
             </tr>
         </tbody>
     </table>
+
+    Imagen
+    <div class="form-group">
+        <input type="file" (change)="uploadFile($event)">
+        <div>{{ uploadPercent | async }}</div>
+        <a [href]="downloadURL | async">{{ downloadURL | async }}</a>
+    </div>
+
 
 </div>

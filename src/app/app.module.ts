@@ -10,9 +10,13 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
+import { AngularFireStorageModule,StorageBucket } from '@angular/fire/storage';
+
 import { environment } from 'src/environments/environment';
 import { LoginComponent } from './shared/login/login.component';
 import { RegistroComponent } from './shared/login/registro.component';
+
+
 
 @NgModule({
   declarations: [
@@ -28,10 +32,14 @@ import { RegistroComponent } from './shared/login/registro.component';
     
     AngularFireModule.initializeApp(environment.firestore, 'appBanco'),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFireStorageModule
   ],
 
-  providers: [{ provide: FirestoreSettingsToken, useValue: {} }],
+  providers: [
+    { provide: FirestoreSettingsToken, useValue: {} },
+    { provide: StorageBucket, useValue: 'appbanco-a586b.appspot.com' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

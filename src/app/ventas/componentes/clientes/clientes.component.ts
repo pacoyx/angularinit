@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientesService } from '../../servicios/clientes.service';
 import { Ecliente } from '../../modelos/ecliente';
+import { CargaimagenService } from '../../servicios/cargaimagen.service';
+import { Observable } from "rxjs";
+import { finalize } from 'rxjs/operators';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 declare var Swal: any;
 
@@ -12,8 +16,12 @@ declare var Swal: any;
 export class ClientesComponent implements OnInit {
 
   lisClientes: Ecliente[];
+  uploadPercent: Observable<number>;
+  downloadURL: Observable<string>;
 
-  constructor(private clienteservis: ClientesService) { }
+  constructor(private storage: AngularFireStorage,
+    private cargaServis: CargaimagenService,
+    private clienteservis: ClientesService) { }
 
   ngOnInit() {
     this.clienteservis.getClientes().subscribe(
@@ -63,10 +71,29 @@ export class ClientesComponent implements OnInit {
 
     }
 
-
-
-
   }
+
+
+  uploadFile(event) {
+
+    const file = event.target.files[0];
+    const filePath = 'img/demoimagen';
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, file);
+
+
+    this.uploadPercent = task.percentageChanges();
+
+
+    task.snapshotChanges().pipe(
+      finalize(() => this.downloadURL = fileRef.getDownloadURL())
+    ).subscribe();
+
+
+    // this.cargaServis.uploadFile(event);
+  }
+
+
 
 
 
